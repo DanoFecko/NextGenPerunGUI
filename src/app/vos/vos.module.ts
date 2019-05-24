@@ -21,6 +21,7 @@ import { VoApplicationsComponent } from './vo-detail-page/vo-applications/vo-app
 import { VoSettingsComponent } from './vo-detail-page/vo-settings/vo-settings.component';
 import { VoSettingsAttributesComponent } from './vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
 import { VoSettingsOverviewComponent } from './vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
+import { ResourcesListComponent } from './resources-list/resources-list.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { VoSettingsOverviewComponent } from './vo-detail-page/vo-settings/vo-set
     VoApplicationsComponent,
     VoSettingsComponent,
     VoSettingsAttributesComponent,
-    VoSettingsOverviewComponent
+    VoSettingsOverviewComponent,
+    ResourcesListComponent
   ]
 })
 export class VosModule {
