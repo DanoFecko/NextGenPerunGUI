@@ -32,14 +32,35 @@ export class GroupOverviewComponent implements OnInit {
   private initNavItems() {
     this.navItems = [
       {
+        icon: 'user-white.svg',
+        url: `/organizations/${this.voId}/groups/${this.groupId}/members`,
+        label: 'MENU_ITEMS.GROUP.MEMBERS',
+        style: 'group-btn'
+      },
+      {
         icon: 'group-white.svg',
         url: `/organizations/${this.voId}/groups/${this.groupId}/subgroups`,
         label: 'MENU_ITEMS.GROUP.SUBGROUPS',
-        style: 'group-btn',
-        clickAction: function () {
-          return;
-        }
-      }
+        style: 'group-btn'
+      },
+      {
+        icon: 'resource-white.svg',
+        url: `/organizations/${this.voId}/groups/${this.groupId}/resources`,
+        label: 'MENU_ITEMS.GROUP.RESOURCES',
+        style: 'group-btn'
+      },
+      {
+        icon: 'applications-white.svg',
+        url: `/organizations/${this.voId}/groups/${this.groupId}/applications`,
+        label: 'MENU_ITEMS.GROUP.APPLICATIONS',
+        style: 'group-btn'
+      },
+      {
+        icon: 'settings2-white.svg',
+        url: `/organizations/${this.voId}/groups/${this.groupId}/settings`,
+        label: 'MENU_ITEMS.GROUP.SETTINGS',
+        style: 'group-btn'
+      },
     ];
   }
 }

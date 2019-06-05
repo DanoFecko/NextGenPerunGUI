@@ -28,14 +28,14 @@ export class GroupDetailPageComponent implements OnInit {
       if (_ instanceof NavigationEnd) {
         this.currentUrl = _.url;
 
-        this.backButtonDisplayed = !this.overviewUrlRegex.test(this.currentUrl);
+        this.isOnOverviewPage = this.overviewUrlRegex.test(this.currentUrl);
       }
     });
   }
 
-  overviewUrlRegex = new RegExp('/organizations/\\d+/groups/\\d+$');
   currentUrl;
-  backButtonDisplayed = false;
+  overviewUrlRegex = new RegExp('/organizations/\\d+/groups/\\d+$');
+  isOnOverviewPage = false;
 
   vo: Vo;
   group: Group;
@@ -56,5 +56,11 @@ export class GroupDetailPageComponent implements OnInit {
         });
       });
     });
+  }
+
+  getBackButtonUrl() {
+    return this.isOnOverviewPage ?
+      ['/organizations', this.vo.id, 'groups'] :
+      ['/organizations', this.vo.id, 'groups', this.group.id];
   }
 }

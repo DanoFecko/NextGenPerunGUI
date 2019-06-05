@@ -22,6 +22,7 @@ import { VoSettingsComponent } from './vo-detail-page/vo-settings/vo-settings.co
 import { VoSettingsAttributesComponent } from './vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
 import { VoSettingsOverviewComponent } from './vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import { ResourcesListComponent } from './resources-list/resources-list.component';
+import { VoSettingsExpirationComponent } from './vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 
 @NgModule({
   imports: [
@@ -49,7 +50,9 @@ import { ResourcesListComponent } from './resources-list/resources-list.componen
     VoSettingsComponent,
     VoSettingsAttributesComponent,
     VoSettingsOverviewComponent,
-    ResourcesListComponent
+    ResourcesListComponent,
+    VoSettingsOverviewComponent,
+    VoSettingsExpirationComponent
   ]
 })
 export class VosModule {

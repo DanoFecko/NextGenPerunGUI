@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>{{'DIALOGS.DELETE_GROUP.TITLE' | translate}}</h1>
+<div mat-dialog-content>
+  <div>
+    {{'DIALOGS.DELETE_GROUP.DESCRIPTION' | translate}}
+  </div>
+
+  <div class="font-weight-bold">
+    {{'DIALOGS.DELETE_GROUP.ASK' | translate}}
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="w-100">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let group"> {{group.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="font-weight-bolder"></tr>
+    <tr mat-row *matRowDef="let group; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+<div mat-dialog-actions>
+  <button
+    mat-flat-button
+    class="ml-auto"
+    (click)="onCancel()">
+    {{'DIALOGS.DELETE_GROUP.CANCEL' | translate}}
+  </button>
+  <button
+    mat-flat-button
+    class="ml-2"
+    color="warn"
+    (click)="onSubmit()">
+    {{'DIALOGS.DELETE_GROUP.DELETE' | translate}}
+  </button>
+</div>

@@ -17,7 +17,8 @@
       "CREATE_GROUP": "Create...",
       "DELETE_GROUP": "Delete...",
       "TABLE_GROUP_ID": "Id",
-      "TABLE_GROUP_NAME": "Name"
+      "TABLE_GROUP_NAME": "Name",
+      "LIST_VIEW": "List view"
     },
     "MEMBERS": {
       "TITLE": "Members",
@@ -25,7 +26,8 @@
       "REMOVE_MEMBERS": "Remove...",
       "SEARCH_DESCRIPTION": "Search by name, login or email",
       "LIST_ALL": "List all members",
-      "SEARCH_ALERT": "You can search member by name, login and email. Also, you can list all valid members."
+      "SEARCH_ALERT": "You can search member by name, login and email. Also, you can list all valid members.",
+      "NO_MEMBERS_ALERT": "No members found."
     },
     "OVERVIEW": {
       "INVITE_MEMBER": "Invite member",
@@ -42,13 +44,37 @@
       "TABLE_FACILITY_NAME": "Facility name",
       "TABLE_RESOURCE_TAGS": "Tags",
       "TABLE_RESOURCE_DESCRIPTION": "Description",
-      "TABLE_SEARCH": "Search"
+      "TABLE_SEARCH": "Filter by name, description or ID"
+    },
+    "SETTINGS": {
+      "EXPIRATION": {
+        "TITLE": "Membership expiration",
+        "DISABLED": "Disabled",
+        "ENABLED": "Enabled",
+        "PERIOD_LABEL": "Period",
+        "PERIOD_TYPE_STATIC": "Static",
+        "PERIOD_TYPE_DYNAMIC": "Dynamic",
+        "DP_PLACEHOLDER": "Choose a date",
+        "DP_HINT": "The year is ignored. Expiration will occur every year.",
+        "AMOUNT_VALUE": "Amount",
+        "AMOUNT_TYPE": "Unit",
+        "DONT_ALLOW_LOA_LABEL": "Forbidden LOAs",
+        "DONT_ALLOW_LOA_SELECT": "Choose LOAs",
+        "DONT_EXTEND_LOA_LABEL": "Don't extend LOAs",
+        "DONT_EXTEND_LOA_SELECT": "Choose LOAs",
+        "GRACE_PERIOD_LABEL": "Grace period",
+        "GRACE_AMOUNT_VALUE": "Amount",
+        "GRACE_AMOUNT_TYPE": "Unit",
+        "LOA_PERIOD_LABEL": "Special loa periods",
+        "SAVE": "Save"
+      }
     }
   },
   "GROUP_DETAIL": {
     "TITLE": "Group - "
   },
   "MEMBER_DETAIL": {
+    "TITLE": "Member - ",
     "OVERVIEW": {
       "NEVER_EXPIRES": "never",
       "MEMBERSHIP": "Membership"
@@ -65,12 +91,16 @@
       "APPLICATIONS": "Applications",
       "RESOURCES": "Resources",
       "SETTINGS": "Settings",
-      "ATTRIBUTES": "Attributes"
+      "ATTRIBUTES": "Attributes",
+      "EXPIRATION": "Membership"
     },
     "GROUP": {
       "OVERVIEW": "Overview",
       "MEMBERS": "Members",
-      "SUBGROUPS": "Subgroups"
+      "SUBGROUPS": "Subgroups",
+      "RESOURCES": "Resources",
+      "APPLICATIONS": "Applications",
+      "SETTINGS": "Settings"
     },
     "MEMBER": {
       "OVERVIEW": "Overview",
@@ -97,6 +127,14 @@
       "LANGUAGE_CZECH": "Czech",
       "EMAIL_ERROR": "Fill in an correct email!",
       "SUCCESS": "Invite was send to given email"
+    },
+    "DELETE_GROUP": {
+      "TITLE": "Confirm delete action",
+      "DESCRIPTION": "Following groups (including all sub-groups) will be deleted.",
+      "ASK": "Do you want to proceed?",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "SUCCESS": "Selected groups were deleted"
     }
   },
   "MEMBERS_LIST": {

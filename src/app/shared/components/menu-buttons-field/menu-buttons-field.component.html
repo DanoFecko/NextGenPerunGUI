@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<div *ngIf="size === 'large'" class="row mt-5 ml-0 mr-0 menu-items-row">
+<div *ngIf="size === 'large'" class="row ml-0 mr-0 menu-items-row">
   <div *ngFor="let item of items" class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
     <a [routerLink]="item.url"
        class="menu-item-large box-button-large {{item.style}}">
@@ -38,7 +38,7 @@
 <!--</div>-->
 
 <ul class="list" *ngIf="size === 'medium'">
-  <li class="list-item" *ngFor="let item of items" (click)="item.clickAction(dialog, voId)">
+  <li class="list-item" *ngFor="let item of items" (click)="item.clickAction !== undefined && item.clickAction(dialog, voId)">
     <div class="list-content {{item.style}}" >
       <img src="assets/img/PerunWebImages/{{item.icon}}" alt="{{item.label}}">
         {{item.label | translate}}

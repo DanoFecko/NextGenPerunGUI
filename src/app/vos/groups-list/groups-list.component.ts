@@ -1,11 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {MatCheckboxChange, MatSort, MatTableDataSource} from '@angular/material';
+import {Component,  Input, OnChanges,  SimpleChanges, ViewChild} from '@angular/core';
+import {MatSort, MatTableDataSource} from '@angular/material';
 import {Group} from '../../core/models/Group';
-
-export declare class GroupSelectChange {
-  group: Group;
-  checked: boolean;
-}
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-groups-list',
@@ -24,19 +20,19 @@ export class GroupsListComponent implements OnChanges {
   @Input()
   groups: Group[] = [];
 
-  @Output()
-  groupSelectChange: EventEmitter<GroupSelectChange> = new EventEmitter<GroupSelectChange>();
+  @Input()
+  selection = new SelectionModel<Group>(true, []);
 
   private sort: MatSort;
 
   @Input()
   hideColumns: string[] = [];
 
-  displayedColumns: string[] = ['checkbox', 'id', 'name'];
+  displayedColumns: string[] = ['select', 'id', 'name'];
   dataSource: MatTableDataSource<Group>;
 
+
   ngOnChanges(changes: SimpleChanges) {
-    this.displayedColumns = this.displayedColumns.filter(x => !this.hideColumns.includes(x));
     this.dataSource = new MatTableDataSource<Group>(this.groups);
     this.setDataSource();
   }
@@ -47,8 +43,23 @@ export class GroupsListComponent implements OnChanges {
     }
   }
 
-  onGroupSelected(event: MatCheckboxChange, group: Group) {
-    this.groupSelectChange.emit({group: group, checked: event.checked});
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  checkboxLabel(row?: Group): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 }
 

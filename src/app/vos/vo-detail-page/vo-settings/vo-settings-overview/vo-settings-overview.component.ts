@@ -40,10 +40,13 @@ export class VoSettingsOverviewComponent implements OnInit {
         icon: 'attributes-white.svg',
         url: `/organizations/${this.vo.id}/settings/attributes`,
         label: 'MENU_ITEMS.VO.ATTRIBUTES',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
+      },
+      {
+        icon: 'group-white.svg',
+        url: `/organizations/${this.vo.id}/settings/expiration`,
+        label: 'MENU_ITEMS.VO.EXPIRATION',
+        style: 'vo-btn'
       }
     ];
   }

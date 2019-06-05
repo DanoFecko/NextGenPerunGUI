@@ -4,19 +4,22 @@
   <button mat-flat-button color="accent" (click)="onCreateGroup()">
     {{'VO_DETAIL.GROUPS.CREATE_GROUP' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selectedGroups.size === 0">
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="deleteGroup()">
     {{'VO_DETAIL.GROUPS.DELETE_GROUP' | translate}}
   </button>
-  <mat-checkbox color="primary" class="ml-3" [(ngModel)]="showTreeStructure">
-    Tree structure
+  <mat-checkbox color="primary" class="ml-3" [(ngModel)]="showGroupList" (change)="removeAllGroups()">
+    {{'VO_DETAIL.GROUPS.LIST_VIEW' | translate}}
   </mat-checkbox>
   <div class="mt-3">
-    <app-groups-tree *ngIf="showTreeStructure" [groups]="groups">
+    <app-groups-tree
+      *ngIf="!showGroupList"
+      [groups]="groups"
+      [selection]="selected" >
     </app-groups-tree>
     <app-groups-list
       [groups]="groups"
-      (groupSelectChange)="onGroupSelectChange($event)"
-      *ngIf="!showTreeStructure">
+      [selection]="selected"
+      *ngIf="showGroupList">
     </app-groups-list>
   </div>
 </div>

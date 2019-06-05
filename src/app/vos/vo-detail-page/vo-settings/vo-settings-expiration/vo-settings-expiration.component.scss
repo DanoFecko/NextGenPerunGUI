@@ -1,0 +1,29 @@
+.period-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.amount-field {
+  width: 80px;
+}
+
+.date-field {
+  width: 100%;
+}
+
+.settings-header {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.settings-card {
+  padding: .5rem 1.5rem .5rem 1.5rem;
+}

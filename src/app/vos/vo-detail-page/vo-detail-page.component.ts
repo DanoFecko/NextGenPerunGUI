@@ -4,7 +4,6 @@ import {VoService} from '../../core/services/vo.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Vo} from '../../core/models/Vo';
 import {SideMenuItemService} from '../../shared/side-menu/side-menu-item.service';
-import {current} from 'codelyzer/util/syntaxKind';
 
 @Component({
   selector: 'app-vo-detail-page',
@@ -25,17 +24,16 @@ export class VoDetailPageComponent implements OnInit {
     router.events.subscribe((_: NavigationEnd) => {
       if (_ instanceof NavigationEnd) {
         this.currentUrl = _.url;
-
-        this.backButtonDisplayed = this.backButtonRegex.test(this.currentUrl);
       }
     });
   }
 
   vo: Vo;
 
-  backButtonRegex = new RegExp('/organizations/\\d+/\\w+$');
   currentUrl;
-  backButtonDisplayed = false;
+
+  notOverviewRegex = new RegExp('/organizations/\\d+/\\w+$');
+  settingsSubPageRegex = new RegExp('/organizations/\\d+/settings/\\w+$');
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -49,5 +47,14 @@ export class VoDetailPageComponent implements OnInit {
         this.sideMenuService.setMenuItems([sideMenuItem]);
       });
     });
+  }
+
+  getBackButtonUrl() {
+    if (this.settingsSubPageRegex.test(this.currentUrl)) {
+      return ['/organizations/', this.vo.id, 'settings'];
+    }
+    return this.notOverviewRegex.test(this.currentUrl) ?
+      ['/organizations/', this.vo.id] :
+      ['/organizations'];
   }
 }

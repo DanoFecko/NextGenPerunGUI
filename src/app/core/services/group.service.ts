@@ -31,4 +31,11 @@ export class GroupService {
   getMemberGroups(memberId: number): Observable<Group[]> {
     return this.apiService.get(`json/groupsManager/getMemberGroups?member=${memberId}`);
   }
+
+  deleteGroups(groups: Group[]) {
+    return this.apiService.post('json/groupsManager/deleteGroups', {
+      groups : groups.map( val => (val.id)),
+      forceDelete : 1
+    });
+  }
 }

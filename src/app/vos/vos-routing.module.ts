@@ -16,6 +16,7 @@ import {VoApplicationsComponent} from './vo-detail-page/vo-applications/vo-appli
 import {VoSettingsComponent} from './vo-detail-page/vo-settings/vo-settings.component';
 import {VoSettingsAttributesComponent} from './vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
 import {VoSettingsOverviewComponent} from './vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
+import {VoSettingsExpirationComponent} from './vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
           {
             path: 'attributes',
             component: VoSettingsAttributesComponent
+          },
+          {
+            path: 'expiration',
+            component: VoSettingsExpirationComponent
           }
         ]
       }
@@ -87,7 +92,7 @@ const routes: Routes = [
       {
         path: 'subgroups',
         component: GroupSubgroupsComponent
-      }
+      },
     ]
   }
 ];

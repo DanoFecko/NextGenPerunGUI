@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Vo} from '../../../core/models/Vo';
-import {GroupSelectChange} from '../../groups-list/groups-list.component';
 import {Group} from '../../../core/models/Group';
 import {MatDialog} from '@angular/material';
 import {CreateGroupDialogComponent} from '../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
@@ -8,6 +7,8 @@ import {GroupService} from '../../../core/services/group.service';
 import {SideMenuService} from '../../../shared/side-menu.service';
 import {VoService} from '../../../core/services/vo.service';
 import {ActivatedRoute} from '@angular/router';
+import {DeleteGroupDialogComponent} from '../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-vo-groups',
@@ -23,10 +24,14 @@ export class VoGroupsComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  @Input()
   vo: Vo;
+
   groups: Group[] = [];
-  selectedGroups: Set<Group> = new Set<Group>();
-  showTreeStructure = false;
+
+  showGroupList = false;
+
+  selected = new SelectionModel<Group>(true, []);
 
   onCreateGroup() {
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, {
@@ -54,12 +59,23 @@ export class VoGroupsComponent implements OnInit {
     });
   }
 
-  onGroupSelectChange(event: GroupSelectChange) {
-    if (event.checked) {
-      this.selectedGroups.add(event.group);
-    } else {
-      this.selectedGroups.delete(event.group);
-    }
-    console.log(this.selectedGroups);
+  deleteGroup() {
+    const dialogRef = this.dialog.open(DeleteGroupDialogComponent, {
+      width: '450px',
+      data: {voId: this.vo.id, groups: this.selected.selected}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.groupService.getAllGroups(this.vo.id).subscribe(groups => {
+          this.groups = groups;
+          this.selected.clear();
+        });
+      }
+    });
+  }
+
+  removeAllGroups() {
+    this.selected.clear();
   }
 }

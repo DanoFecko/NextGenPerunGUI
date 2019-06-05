@@ -1,32 +1,42 @@
 <div class="card mt-2">
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node class="group-tree-node" [routerLink]="['/organizations', group.voId, 'groups', group.groupId]"
-                   *matTreeNodeDef="let group" matTreeNodePadding>
+    <mat-tree-node class="group-tree-node" [routerLink]="['/organizations', group.voId, 'groups', group.id]"
+                   *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
       <!-- use a disabled button to provide padding for tree leaf -->
-      <mat-checkbox color="primary" class="no-label-margin-bottom ml-4" (click)="$event.stopPropagation()">
-      </mat-checkbox>
+
+      <mat-checkbox color="primary"
+                    class="no-label-margin-bottom ml-4"
+                    [checked]="selection.isSelected(group)"
+                    (change)="leafItemSelectionToggle(group)"
+                    matTreeNodeToggle></mat-checkbox>
       <button mat-icon-button disabled></button>
       <div class="mr-2">
         {{group.name}}
       </div>
       <div class="text-muted">
-        #{{group.groupId}}
+        #{{group.id}}
       </div>
     </mat-tree-node>
-    <mat-tree-node class="group-tree-node" *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-      <mat-checkbox color="primary" class="no-label-margin-bottom ml-4" (click)="$event.stopPropagation()">
-      </mat-checkbox>
+
+    <mat-tree-node [routerLink]="['/organizations', group.voId, 'groups', group.id]"
+      class="group-tree-node"
+      *matTreeNodeDef="let group;when: hasChild" matTreeNodePadding> <!--parent-->
+      <mat-checkbox color="primary" class="no-label-margin-bottom ml-4"
+                    [checked]="selection.isSelected(group)"
+                    [indeterminate]="descendantsPartiallySelected(group)"
+                    (change)="itemSelectionToggle(group)"
+                    matTreeNodeToggle></mat-checkbox>
       <button mat-icon-button matTreeNodeToggle
-              [attr.aria-label]="'toggle ' + node.name">
+              [attr.aria-label]="'toggle ' + group.name">
         <mat-icon class="mat-icon-rtl-mirror">
-          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          {{treeControl.isExpanded(group) ? 'expand_more' : 'chevron_right'}}
         </mat-icon>
       </button>
-      <div class="mr-2">
-        {{node.name}}
+      <div class="mr-2" >
+        {{group.name}}
       </div>
       <div class="text-muted">
-        #{{node.groupId}}
+        #{{group.id}}
       </div>
     </mat-tree-node>
   </mat-tree>

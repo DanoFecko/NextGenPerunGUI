@@ -1,0 +1,15 @@
+<div class="mt-3">
+  <div class="d-flex flex-row align-items-baseline justify-content-between">
+    <label
+      class="setting-item clickable"
+      (click)="toggle.toggle()"
+      [class.unselected-setting]="!toggle.checked">
+      {{title}}
+    </label>
+    <mat-slide-toggle class="ml-4" color="primary" #toggle [(ngModel)]="modelValue">
+    </mat-slide-toggle>
+  </div>
+  <div class="ml-3" [@openClose]="toggle.checked ? 'open' : 'closed'">
+    <ng-content></ng-content>
+  </div>
+</div>

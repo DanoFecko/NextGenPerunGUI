@@ -1,12 +1,12 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 vo-theme" *ngIf="vo !== undefined">
+  <app-back-button [url]="getBackButtonUrl()">
+  </app-back-button>
   <h1 class="page-title">
     {{'VO_DETAIL.TITLE' | translate}}
     <a class="vo-link" [routerLink]="['/organizations/', vo.id]">
       {{vo.name}}
     </a>
   </h1>
-  <app-back-button *ngIf="backButtonDisplayed" [url]="['/organizations/', vo.id]">
-  </app-back-button>
   <router-outlet></router-outlet>
 </div>
 

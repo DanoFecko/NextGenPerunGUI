@@ -45,46 +45,31 @@ export class VoOverviewComponent implements OnInit {
         icon: 'user-white.svg',
         url: `/organizations/${this.vo.id}/members`,
         label: 'MENU_ITEMS.VO.MEMBERS',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
       },
       {
         icon: 'group-white.svg',
         url: `/organizations/${this.vo.id}/groups`,
         label: 'MENU_ITEMS.VO.GROUPS',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
       },
       {
         icon: 'resource-white.svg',
         url: `/organizations/${this.vo.id}/resources`,
         label: 'MENU_ITEMS.VO.RESOURCES',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
       },
       {
         icon: 'applications-white.svg',
         url: `/organizations/${this.vo.id}/applications`,
         label: 'MENU_ITEMS.VO.APPLICATIONS',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
       },
       {
         icon: 'settings2-white.svg',
         url: `/organizations/${this.vo.id}/settings`,
         label: 'MENU_ITEMS.VO.SETTINGS',
-        style: 'vo-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'vo-btn'
       }
     ];
   }

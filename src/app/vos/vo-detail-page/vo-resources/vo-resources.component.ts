@@ -5,11 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Vo} from '../../../core/models/Vo';
 import {RichResource} from '../../../core/models/RichResource';
 import {ResourcesService} from '../../../core/services/resources.service';
-
-export declare class ResourceSelectChange {
-  resource: RichResource;
-  checked: boolean;
-}
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-vo-resources',
@@ -26,7 +22,7 @@ export class VoResourcesComponent implements OnInit {
 
   vo: Vo;
   resources: RichResource[] = [];
-  selectedResources: Set<RichResource> = new Set<RichResource>();
+  selected = new SelectionModel<RichResource>(true, []);
 
   ngOnInit() {
     this.route.parent.params.subscribe(parentParams => {
@@ -40,15 +36,6 @@ export class VoResourcesComponent implements OnInit {
         });
       });
     });
-  }
-
-  onResourceSelectChange(event: ResourceSelectChange) {
-    if (event.checked) {
-      this.selectedResources.add(event.resource);
-    } else {
-      this.selectedResources.delete(event.resource);
-    }
-    console.log(this.selectedResources);
   }
 
 }

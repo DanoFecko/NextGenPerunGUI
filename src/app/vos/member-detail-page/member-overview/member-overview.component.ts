@@ -56,10 +56,7 @@ export class MemberOverviewComponent implements OnInit {
         icon: 'group-white.svg',
         url: `/organizations/${this.member.voId}/members/${this.member.id}/groups`,
         label: 'MENU_ITEMS.MEMBER.GROUPS',
-        style: 'member-btn',
-        clickAction: function () {
-          return;
-        }
+        style: 'member-btn'
       }
     ];
   }

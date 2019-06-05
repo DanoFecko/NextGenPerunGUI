@@ -1,12 +1,12 @@
 <div>
   <h1 class="page-subtitle">{{'VO_DETAIL.RESOURCES.TITLE' | translate}}</h1>
 
-    <button mat-flat-button color="warn" class="ml-2" [disabled]="selectedResources.size === 0">
-      {{'VO_DETAIL.RESOURCES.DELETE' | translate}}
-    </button>
+  <button mat-flat-button color="warn" [disabled]="selected.selected.length === 0">
+    {{'VO_DETAIL.RESOURCES.DELETE' | translate}}
+  </button>
 
-      <app-resources-list
-        [resources]="resources"
-        (resourceSelectChange)="onResourceSelectChange($event)">
-      </app-resources-list>
+  <app-resources-list
+    [resources]="resources"
+    [selection]="selected">
+  </app-resources-list>
 </div>

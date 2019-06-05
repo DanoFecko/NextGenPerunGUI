@@ -33,15 +33,12 @@ export class MemberDetailPageComponent implements OnInit {
     router.events.subscribe((_: NavigationEnd) => {
       if (_ instanceof NavigationEnd) {
         this.currentUrl = _.url;
-
-        this.backButtonDisplayed = !this.overviewUrlRegex.test(this.currentUrl);
       }
     });
   }
 
   overviewUrlRegex = new RegExp('/organizations/\\d+/members/\\d+$');
   currentUrl;
-  backButtonDisplayed = false;
 
   vo: Vo;
   member: RichMember;
@@ -64,5 +61,11 @@ export class MemberDetailPageComponent implements OnInit {
         });
       });
     });
+  }
+
+  getBackButtonUrl() {
+    return this.overviewUrlRegex.test(this.currentUrl) ?
+      ['/organizations', this.vo.id, 'members'] :
+      ['/organizations', this.vo.id, 'members', this.member.id];
   }
 }

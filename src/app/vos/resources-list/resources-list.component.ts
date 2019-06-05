@@ -1,12 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {RichResource} from '../../core/models/RichResource';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-
-export declare class ResourceSelectChange {
-  resource: RichResource;
-  checked: boolean;
-}
 
 @Component({
   selector: 'app-resources-list',
@@ -26,9 +21,6 @@ export class ResourcesListComponent implements OnChanges {
   @Input()
   resources: RichResource[] = [];
 
-  @Output()
-  resourceSelectChange: EventEmitter<ResourceSelectChange> = new EventEmitter<ResourceSelectChange>();
-
   private sort: MatSort;
 
   @Input()
@@ -37,6 +29,7 @@ export class ResourcesListComponent implements OnChanges {
   displayedColumns: string[] = ['select', 'id', 'name', 'facility', 'tags', 'description'];
   dataSource: MatTableDataSource<RichResource>;
 
+  @Input()
   selection = new SelectionModel<RichResource>(true, []);
 
   ngOnChanges(changes: SimpleChanges) {

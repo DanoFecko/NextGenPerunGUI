@@ -1,6 +1,11 @@
 <div class="container-fluid pl-xl-5 pr-xl-5 group-theme" *ngIf="vo !== undefined && group !== undefined">
-  <h1 class="page-title">{{'GROUP_DETAIL.TITLE' | translate}}{{group.name}}</h1>
-  <app-back-button *ngIf="backButtonDisplayed" [url]="['/organizations', vo.id, 'groups', group.id]">
+  <app-back-button [url]="getBackButtonUrl()">
   </app-back-button>
+  <h1 class="page-title">
+    {{'GROUP_DETAIL.TITLE' | translate}}
+    <a class="group-link" [routerLink]="['/organizations', vo.id, 'groups', group.id]">
+      {{group.name}}
+    </a>
+  </h1>
   <router-outlet></router-outlet>
 </div>
