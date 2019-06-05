@@ -18,6 +18,7 @@
       "DELETE_GROUP": "Delete...",
       "TABLE_GROUP_ID": "Id",
       "TABLE_GROUP_NAME": "Name",
+      "TITLE_SUBGROUPS": "Subgroups",
       "LIST_VIEW": "List view"
     },
     "MEMBERS": {
@@ -110,6 +111,7 @@
   "DIALOGS": {
     "CREATE_GROUP": {
       "TITLE": "Create group",
+      "TITLE_SUB_GROUP": "Create subgroup for ",
       "NAME": "Name",
       "DESCRIPTION": "Description",
       "CANCEL": "Cancel",

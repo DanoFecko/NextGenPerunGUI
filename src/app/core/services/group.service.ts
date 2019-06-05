@@ -20,9 +20,21 @@ export class GroupService {
     return this.apiService.get(`json/groupsManager/getAllGroups?vo=${voId}`);
   }
 
+  getAllSubGroups(groupId: number): Observable<Group[]> {
+    return this.apiService.get(`json/groupsManager/getSubGroups?parentGroup=${groupId}`);
+  }
+
   createGroup(voId: number, name: string, description: string): Observable<Group> {
     return this.apiService.post('json/groupsManager/createGroup', {
       vo: voId,
+      name: name,
+      description: description
+    });
+  }
+
+  createSubGroup(groupId: number, name: string, description: string): Observable<Group> {
+    return this.apiService.post('json/groupsManager/createGroup', {
+      parentGroup: groupId,
       name: name,
       description: description
     });

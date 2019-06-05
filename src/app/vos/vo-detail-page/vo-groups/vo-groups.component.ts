@@ -36,7 +36,7 @@ export class VoGroupsComponent implements OnInit {
   onCreateGroup() {
     const dialogRef = this.dialog.open(CreateGroupDialogComponent, {
       width: '350px',
-      data: {voId: this.vo.id}
+      data: {voId: this.vo.id, parentGroup: null}
     });
 
     dialogRef.afterClosed().subscribe(value => {

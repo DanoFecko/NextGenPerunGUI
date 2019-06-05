@@ -62,8 +62,9 @@ export class GroupsTreeComponent implements OnChanges {
     }
 
     idGroupMap.forEach((group: TreeGroup, id: number, map: Map<number, TreeGroup>) => {
-      if (group.parentGroupId != null) {
-        const updatedParentGroup: TreeGroup = map.get(group.parentGroupId);
+      // FIXME
+      const updatedParentGroup: TreeGroup = map.get(group.parentGroupId);
+      if (updatedParentGroup != null) {
         updatedParentGroup.addChild(group);
         map.set(group.parentGroupId, updatedParentGroup);
       }
