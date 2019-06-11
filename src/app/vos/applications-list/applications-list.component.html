@@ -1,0 +1,79 @@
+<mat-form-field class="w-25">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{'VO_DETAIL.APPLICATION.SEARCH' | translate}}">
+</mat-form-field>
+
+<mat-spinner *ngIf="loading" class="ml-auto mr-auto">
+</mat-spinner>
+
+<div class="card mt-2" *ngIf="this.applications.length !== 0 && !loading">
+  <div class="card-body table-theme">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" matSortDisableClear class="w-100">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_ID' | translate}}</th>
+        <td mat-cell *matCellDef="let application">{{application.id}}</td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_CREATED_DATE' | translate}}</th>
+        <td mat-cell *matCellDef="let application">{{application.createdAt | date}}</td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_TYPE' | translate}}</th>
+        <td mat-cell *matCellDef="let application">
+          <div *ngIf="application.type == 'INITIAL'; else extension">
+            <mat-icon matTooltip="Initial" matTooltipPosition="above">arrow_right_alt</mat-icon>
+          </div>
+          <ng-template #extension>
+            <mat-icon matTooltip="Extension" matTooltipPosition="above">cached</mat-icon>
+          </ng-template>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_STATE' | translate}}</th>
+        <td mat-cell *matCellDef="let application">
+          <span [outerHTML]="application.state | applicationState"></span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_SUBMITTED_BY' | translate}}</th>
+        <td mat-cell *matCellDef="let application">
+          <div *ngIf="application.user == null; else name">
+            {{application.createdBy.slice(application.createdBy.lastIndexOf('=')+1, application.createdBy.length)}}
+          </div>
+          <ng-template #name>
+            {{application.user | userFullName}}
+          </ng-template>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="extSourceLoa">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_LOA' | translate}}</th>
+        <td mat-cell *matCellDef="let application">{{application.extSourceLoa}}</td>
+      </ng-container>
+      <ng-container matColumnDef="group">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_GROUP_NAME' | translate}}</th>
+        <td mat-cell *matCellDef="let application">
+          <div *ngIf="application.group == null; else groupName" class="font-italic text-muted">
+            -
+          </div>
+          <ng-template #groupName>
+            {{application.group.name}}
+          </ng-template>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="modifiedBy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'VO_DETAIL.APPLICATION.TABLE_MODIFIED_BY' | translate}}</th>
+        <td mat-cell *matCellDef="let application">{{getFriendlyName(application.modifiedBy)}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let application; columns: displayedColumns;"
+        class="dark-hover-list-item">
+      </tr>
+    </table>
+    <mat-paginator [length]="this.applications.length" [pageSize]="30"></mat-paginator>
+  </div>
+</div>
+<div *ngIf="this.applications.length === 0 && !loading" class="perun-alert warn-alert">
+  {{'VO_DETAIL.APPLICATION.NO_APPLICATION_FOUND' | translate}}
+</div>

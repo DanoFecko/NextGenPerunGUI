@@ -1,33 +1,33 @@
-import {Component, OnInit} from '@angular/core';
-import {VoService} from '../../../core/services/vo.service';
+import { Component, OnInit } from '@angular/core';
 import {RegistrarService} from '../../../core/services/registrar.service';
-import {Vo} from '../../../core/models/Vo';
 import {ActivatedRoute} from '@angular/router';
 import {Application} from '../../../core/models/Application';
+import {GroupService} from '../../../core/services/group.service';
+import {Group} from '../../../core/models/Group';
 
 @Component({
-  selector: 'app-vo-applications',
-  templateUrl: './vo-applications.component.html',
-  styleUrls: ['./vo-applications.component.scss']
+  selector: 'app-group-applications',
+  templateUrl: './group-applications.component.html',
+  styleUrls: ['./group-applications.component.scss']
 })
-export class VoApplicationsComponent implements OnInit {
+export class GroupApplicationsComponent implements OnInit {
 
-  constructor(private voService: VoService,
+  constructor(private groupService: GroupService,
               private registarService: RegistrarService,
               protected route: ActivatedRoute) { }
 
   state = 'pending';
   loading = false;
   applications: Application[] = [];
-  vo: Vo;
-  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'extSourceLoa', 'group', 'modifiedBy'];
+  group: Group;
+  displayedColumns: string[] = ['id', 'createdAt', 'type', 'state', 'user', 'extSourceLoa', 'modifiedBy'];
 
   ngOnInit() {
     this.loading = true;
     this.route.parent.params.subscribe(parentParams => {
-      const voId = parentParams['voId'];
-      this.voService.getVoById(voId).subscribe(vo => {
-        this.vo = vo;
+      const groupId = parentParams['groupId'];
+      this.groupService.getGroupById(groupId).subscribe( group => {
+        this.group = group;
         this.setData(['NEW', 'VERIFIED']);
       });
     });
@@ -35,7 +35,7 @@ export class VoApplicationsComponent implements OnInit {
 
 
   setData(state: string[]) {
-    this.registarService.getApplicationsForVoWithState(this.vo.id, state).subscribe(applications => {
+    this.registarService.getApplicationsForGroupWithState(this.group.id, state).subscribe(applications => {
       this.applications = applications;
       this.loading = false;
     });
@@ -65,7 +65,7 @@ export class VoApplicationsComponent implements OnInit {
         break;
       }
       case 'all': {
-        this.registarService.getApplicationsForVo(this.vo.id).subscribe(applications => {
+        this.registarService.getApplicationsForGroup(this.group.id).subscribe(applications => {
           this.applications = applications;
           this.loading = false;
         });

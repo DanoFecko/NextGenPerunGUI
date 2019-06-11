@@ -16,7 +16,7 @@ export interface Attribute {
   namespace: string;
   type: string;
   unique: boolean;
-  value: string;
+  value: any;
   valueCreatedAt: string;
   valueCreatedBy: string;
   valueModifiedAt: string;

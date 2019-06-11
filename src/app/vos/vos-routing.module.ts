@@ -17,6 +17,7 @@ import {VoSettingsComponent} from './vo-detail-page/vo-settings/vo-settings.comp
 import {VoSettingsAttributesComponent} from './vo-detail-page/vo-settings/vo-settings-attributes/vo-settings-attributes.component';
 import {VoSettingsOverviewComponent} from './vo-detail-page/vo-settings/vo-settings-overview/vo-settings-overview.component';
 import {VoSettingsExpirationComponent} from './vo-detail-page/vo-settings/vo-settings-expiration/vo-settings-expiration.component';
+import {GroupApplicationsComponent} from './group-detail-page/group-applications/group-applications.component';
 
 const routes: Routes = [
   {
@@ -93,6 +94,10 @@ const routes: Routes = [
         path: 'subgroups',
         component: GroupSubgroupsComponent
       },
+      {
+        path: 'applications',
+        component: GroupApplicationsComponent
+      }
     ]
   }
 ];

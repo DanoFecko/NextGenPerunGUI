@@ -55,24 +55,58 @@
         "PERIOD_LABEL": "Period",
         "PERIOD_TYPE_STATIC": "Static",
         "PERIOD_TYPE_DYNAMIC": "Dynamic",
-        "DP_PLACEHOLDER": "Choose a date",
-        "DP_HINT": "The year is ignored. Expiration will occur every year.",
+        "PERIOD_INPUT_STATIC": "Date",
+        "DP_HINT": "Date in format DD.MM.",
         "AMOUNT_VALUE": "Amount",
         "AMOUNT_TYPE": "Unit",
-        "DONT_ALLOW_LOA_LABEL": "Forbidden LOAs",
+        "DONT_ALLOW_LOA_LABEL": "Don't allow LOAs",
         "DONT_ALLOW_LOA_SELECT": "Choose LOAs",
         "DONT_EXTEND_LOA_LABEL": "Don't extend LOAs",
         "DONT_EXTEND_LOA_SELECT": "Choose LOAs",
         "GRACE_PERIOD_LABEL": "Grace period",
         "GRACE_AMOUNT_VALUE": "Amount",
         "GRACE_AMOUNT_TYPE": "Unit",
-        "LOA_PERIOD_LABEL": "Special loa periods",
-        "SAVE": "Save"
+        "LOA_PERIOD_LABEL": "Special period for loa",
+        "SAVE": "Save",
+        "SPECIAL_LOA_SELECT": "Choose loa",
+        "EXTEND_EXPIRED_MEMBERS_CHECKBOX": "Extend already expired members"
+      }
+    },
+    "APPLICATION": {
+      "TITLE": "Application",
+      "SEARCH": "Search",
+      "SELECTION_ALL": "All",
+      "SELECTION_WFMV": "Waiting for mail verification",
+      "SELECTION_SUBMITTED": "Submitted",
+      "SELECTION_PENDING": "Pending",
+      "SELECTION_APPROVED": "Approved",
+      "SELECTION_REJECTED": "Rejected",
+      "TABLE_ID": "App ID",
+      "TABLE_CREATED_DATE": "Created Date",
+      "TABLE_TYPE": "Type",
+      "TABLE_STATE": "State",
+      "TABLE_SUBMITTED_BY": "Submitted by",
+      "TABLE_LOA": "LoA",
+      "TABLE_GROUP_NAME": "Group",
+      "TABLE_MODIFIED_BY": "Modified by",
+      "NO_APPLICATION_FOUND": "No applications matching search criteria found for this VO or it's groups.",
+      "STATE": {
+        "APPROVED": "Approved",
+        "REJECTED": "Rejected",
+        "NEW": "New",
+        "VERIFIED": "Submited"
       }
     }
   },
   "GROUP_DETAIL": {
-    "TITLE": "Group - "
+    "TITLE": "Group - ",
+    "SUBGROUPS": {
+      "TITLE": "Subgroups",
+      "CREATE_GROUP": "Create subgroup",
+      "DELETE_GROUP": "Delete subgroup",
+      "SHOW_LIST": "List view",
+      "NO_SUBGROUPS": "This group has no subgroups."
+    }
   },
   "MEMBER_DETAIL": {
     "TITLE": "Member - ",

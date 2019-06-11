@@ -1,4 +1,4 @@
-<div class="card settings-card col-12 col-md-12 col-xl-6">
+<div class="card settings-card col-12 col-md-12 col-xl-6" *ngIf="currentConfiguration">
   <div class="d-flex flex-row align-items-baseline justify-content-between">
     <h1 class="settings-header" (click)="mainToggle.toggle()"
         [class.unselected-setting]="!mainToggle.checked">
@@ -9,8 +9,8 @@
   </div>
 
   <div [@openClose]="mainToggle.checked ? 'open' : 'closed'">
-    <label class="setting-item">{{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_LABEL' | translate}}</label>
-    <div class="ml-3">
+    <label class="setting-item pt-2">{{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_LABEL' | translate}}</label>
+    <div class="ml-1">
       <mat-radio-group [(ngModel)]="currentConfiguration.periodType">
         <mat-radio-button #staticPeriod class="mr-3" color="primary" value="static">
           {{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_TYPE_STATIC' | translate}}
@@ -23,12 +23,9 @@
         <mat-form-field class="date-field">
           <input
             matInput
-            [matDatepicker]="picker"
             [(ngModel)]="currentConfiguration.periodStatic"
-            placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.DP_PLACEHOLDER' | translate}}">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}">
           <mat-hint>{{'VO_DETAIL.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
-          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="d-flex flex-row" *ngIf="dynamicPeriod.checked">
@@ -50,11 +47,11 @@
     <!--  Dont allow loa  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.forbiddenLoasEnabled"
+      [(model)]="currentConfiguration.doNotAllowLoasEnabled"
       [title]="'VO_DETAIL.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_LABEL' | translate">
       <mat-form-field>
         <mat-placeholder>{{'VO_DETAIL.SETTINGS.EXPIRATION.DONT_ALLOW_LOA_SELECT' | translate}}</mat-placeholder>
-        <mat-select [formControl]="notAllowedLoas" multiple>
+        <mat-select multiple [(ngModel)]="currentConfiguration.doNotAllowLoas">
           <mat-option *ngFor="let loa of LOAS" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -63,11 +60,11 @@
     <!--  Dont extend loa  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.dontExtendLoasEnabled"
+      [(model)]="currentConfiguration.doNotExtendLoasEnabled"
       [title]="'VO_DETAIL.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_LABEL' | translate">
       <mat-form-field>
         <mat-placeholder>{{'VO_DETAIL.SETTINGS.EXPIRATION.DONT_EXTEND_LOA_SELECT' | translate}}</mat-placeholder>
-        <mat-select [formControl]="notExtendedLoas" multiple>
+        <mat-select multiple [(ngModel)]="currentConfiguration.doNotExtendLoas">
           <mat-option *ngFor="let loa of LOAS" [value]="loa">{{loa}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -80,11 +77,14 @@
       [title]="'VO_DETAIL.SETTINGS.EXPIRATION.GRACE_PERIOD_LABEL' | translate">
       <div class="d-flex flex-row">
         <mat-form-field class="mr-2 amount-field">
-          <input matInput placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}">
+          <input
+            matInput
+            [(ngModel)]="currentConfiguration.gracePeriod"
+            placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.GRACE_AMOUNT_VALUE' | translate}}">
         </mat-form-field>
         <mat-form-field>
           <mat-label>{{'VO_DETAIL.SETTINGS.EXPIRATION.GRACE_AMOUNT_TYPE' | translate}}</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="currentConfiguration.gracePeriodUnit">
             <mat-option *ngFor="let option of amountOptions" [value]="option.value">{{option.text}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -94,21 +94,21 @@
     <!--  Loa period  -->
 
     <app-settings-toggle-item
-      [(model)]="currentConfiguration.specialLoaPeriodsEnabled"
+      [(model)]="currentConfiguration.specialLoaPeriodEnabled"
       [title]="'VO_DETAIL.SETTINGS.EXPIRATION.LOA_PERIOD_LABEL' | translate">
-      <div class="ml-3">
-        <div class="mt-4" *ngFor="let loa of LOAS">
-          <label
-            class="setting-item"
-            (click)="loaPeriodToggle.toggle()"
-            [class.unselected-setting]="!loaPeriodToggle.checked">
-            Loa - {{loa}}
-          </label>
-          <mat-slide-toggle class="ml-4" color="primary" #loaPeriodToggle>
-          </mat-slide-toggle>
+      <div class="ml-1">
+        <div>
+          <mat-form-field>
+            <mat-label>{{'VO_DETAIL.SETTINGS.EXPIRATION.SPECIAL_LOA_SELECT' | translate}}</mat-label>
+            <mat-select #specialLoaSelect [(ngModel)]="currentConfiguration.specialLoa">
+              <mat-option *ngFor="let loa of LOAS" [value]="loa">
+                {{loa}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <div class="ml-3 mt-2" *ngIf="loaPeriodToggle.checked">
-            <mat-radio-group>
+          <div class="mt-2" *ngIf="currentConfiguration.specialLoa !== null">
+            <mat-radio-group [(ngModel)]="currentConfiguration.specialLoaPeriodType">
               <mat-radio-button #loaStaticRadioButton class="mr-3" color="primary" value="static">
                 {{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_TYPE_STATIC' | translate}}
               </mat-radio-button>
@@ -119,24 +119,32 @@
             <div class="form-container" *ngIf="loaStaticRadioButton.checked">
               <mat-form-field class="date-field">
                 <input
+                  [(ngModel)]="currentConfiguration.specialLoaPeriodStatic"
                   matInput
-                  [matDatepicker]="loaDatePicker"
-                  placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.DP_PLACEHOLDER' | translate}}">
-                <mat-datepicker-toggle matSuffix [for]="loaDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #loaDatePicker></mat-datepicker>
+                  placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.PERIOD_INPUT_STATIC' | translate}}">
                 <mat-hint>{{'VO_DETAIL.SETTINGS.EXPIRATION.DP_HINT' | translate}}</mat-hint>
               </mat-form-field>
             </div>
             <div class="d-flex flex-row" *ngIf="loaDynamicRadioButton.checked">
               <mat-form-field class="mr-2 amount-field">
-                <input matInput placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}">
+                <input
+                  [(ngModel)]="currentConfiguration.specialLoaPeriodDynamic"
+                  matInput
+                  placeholder="{{'VO_DETAIL.SETTINGS.EXPIRATION.AMOUNT_VALUE' | translate}}">
               </mat-form-field>
               <mat-form-field>
                 <mat-label>{{'VO_DETAIL.SETTINGS.EXPIRATION.AMOUNT_TYPE' | translate}}</mat-label>
-                <mat-select>
+                <mat-select [(ngModel)]="currentConfiguration.specialLoaPeriodDynamicUnit">
                   <mat-option *ngFor="let option of amountOptions" [value]="option.value">{{option.text}}</mat-option>
                 </mat-select>
               </mat-form-field>
+            </div>
+            <div>
+              <mat-checkbox
+                color="primary"
+                [(ngModel)]="currentConfiguration.specialLoaPeriodExtendExpiredMembers">
+                {{'VO_DETAIL.SETTINGS.EXPIRATION.EXTEND_EXPIRED_MEMBERS_CHECKBOX' | translate}}
+              </mat-checkbox>
             </div>
           </div>
         </div>
@@ -144,8 +152,8 @@
     </app-settings-toggle-item>
   </div>
 
-  <div *ngIf="areChangesMade()" class="w-100 d-flex mt-3 mb-3">
-    <button mat-flat-button color="primary" class="ml-auto">
+  <div class="w-100 d-flex mt-3 mb-3">
+    <button [disabled]="!areChangesMade()" mat-flat-button color="primary" class="ml-auto" (click)="saveChanges()">
       {{'VO_DETAIL.SETTINGS.EXPIRATION.SAVE' | translate}}
     </button>
   </div>

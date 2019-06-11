@@ -3,7 +3,6 @@
     <mat-tree-node class="group-tree-node" [routerLink]="['/organizations', group.voId, 'groups', group.id]"
                    *matTreeNodeDef="let group" matTreeNodePadding>            <!--leaf-->
       <!-- use a disabled button to provide padding for tree leaf -->
-
       <mat-checkbox color="primary"
                     class="no-label-margin-bottom ml-4"
                     [checked]="selection.isSelected(group)"

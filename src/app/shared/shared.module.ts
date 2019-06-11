@@ -26,7 +26,8 @@ import {
   MatTableModule,
   MatTabsModule,
   MatTooltipModule,
-  MatTreeModule
+  MatTreeModule,
+  MatPaginatorModule,
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SideMenuComponent} from './side-menu/side-menu.component';
@@ -37,11 +38,11 @@ import {CreateGroupDialogComponent} from './components/dialogs/create-group-dial
 import {InviteMemberDialogComponent} from './components/dialogs/invite-member-dialog/invite-member-dialog.component';
 import {UserFullNamePipe} from './pipes/user-full-name.pipe';
 import {TabComponent} from './components/tab.component';
-import {TabPage} from './TabPage';
 import {DeleteGroupDialogComponent} from './components/dialogs/delete-group-dialog/delete-group-dialog.component';
 import {BackButtonComponent} from './components/back-button/back-button.component';
 import {SettingsToggleItemComponent} from './components/settings-toggle-item/settings-toggle-item.component';
 import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
+import { ApplicationStatePipe } from './pipes/application-state.pipe';
 
 @NgModule({
   imports: [
@@ -75,6 +76,7 @@ import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
     MatRadioModule,
     MatDividerModule,
     MatRippleModule,
+    MatPaginatorModule
   ],
   exports: [
     PerunNavComponent,
@@ -101,7 +103,6 @@ import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
     UserFullNamePipe,
     MatProgressSpinnerModule,
     TabComponent,
-    TabPage,
     MatProgressBarModule,
     MatTooltipModule,
     BackButtonComponent,
@@ -113,6 +114,8 @@ import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
     SettingsToggleItemComponent,
     MatRippleModule,
     ResourceTagsToStringPipe,
+    ApplicationStatePipe,
+    MatPaginatorModule
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -128,11 +131,11 @@ import { ResourceTagsToStringPipe } from './pipes/resource-tags-to-string.pipe';
     InviteMemberDialogComponent,
     UserFullNamePipe,
     TabComponent,
-    TabPage,
     BackButtonComponent,
     DeleteGroupDialogComponent,
     SettingsToggleItemComponent,
-    ResourceTagsToStringPipe
+    ResourceTagsToStringPipe,
+    ApplicationStatePipe
   ]
 })
 export class SharedModule { }

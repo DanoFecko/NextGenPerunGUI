@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {openClose} from '../../animations/Animations';
+import {MatSlideToggle} from '@angular/material';
 
 @Component({
   selector: 'app-settings-toggle-item',
@@ -9,9 +10,12 @@ import {openClose} from '../../animations/Animations';
     openClose
   ]
 })
-export class SettingsToggleItemComponent implements OnInit {
+export class SettingsToggleItemComponent implements AfterViewInit {
 
   constructor() { }
+
+  @ViewChild(MatSlideToggle)
+  toggle: MatSlideToggle;
 
   @Input()
   title: string;
@@ -19,10 +23,18 @@ export class SettingsToggleItemComponent implements OnInit {
   modelValue: boolean;
 
   @Output() modelChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() set model(value: boolean) {
+  @Input() get model(): boolean {
+    return this.modelValue;
+  }
+  set model(value: boolean) {
     this.modelValue = value;
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    this.toggle.change.subscribe(() => this.valueChanged());
+  }
+
+  valueChanged() {
+    this.modelChange.emit(this.toggle.checked);
   }
 }

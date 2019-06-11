@@ -2,14 +2,14 @@
   <div class="d-flex flex-row align-items-baseline justify-content-between">
     <label
       class="setting-item clickable"
-      (click)="toggle.toggle()"
+      (click)="toggle.toggle() || valueChanged()"
       [class.unselected-setting]="!toggle.checked">
       {{title}}
     </label>
-    <mat-slide-toggle class="ml-4" color="primary" #toggle [(ngModel)]="modelValue">
+    <mat-slide-toggle class="ml-4" color="primary" #toggle [checked]="model">
     </mat-slide-toggle>
   </div>
-  <div class="ml-3" [@openClose]="toggle.checked ? 'open' : 'closed'">
+  <div class="ml-1" [@openClose]="toggle.checked ? 'open' : 'closed'">
     <ng-content></ng-content>
   </div>
 </div>

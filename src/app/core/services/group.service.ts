@@ -24,6 +24,14 @@ export class GroupService {
     return this.apiService.get(`json/groupsManager/getSubGroups?parentGroup=${groupId}`);
   }
 
+  getSubGroups(groupId: number): Observable<Group[]> {
+    return this.apiService.get(`json/groupsManager/getSubGroups?parentGroup=${groupId}`);
+  }
+
+  getAllRichSubGroupsWithAttributesByNames(groupId: number): Observable<Group[]> {
+    return this.apiService.get(`json/groupsManager/getAllRichSubGroupsWithAttributesByNames?group=${groupId}&attrNames=[]`);
+  }
+
   createGroup(voId: number, name: string, description: string): Observable<Group> {
     return this.apiService.post('json/groupsManager/createGroup', {
       vo: voId,
