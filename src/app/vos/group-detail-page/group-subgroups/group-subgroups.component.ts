@@ -3,7 +3,6 @@ import {MatDialog} from '@angular/material';
 import {GroupService} from '../../../core/services/group.service';
 import {Group} from '../../../core/models/Group';
 import {CreateGroupDialogComponent} from '../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
-import {GroupSelectChange} from '../../groups-list/groups-list.component';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 
