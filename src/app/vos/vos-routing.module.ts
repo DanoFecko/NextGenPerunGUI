@@ -22,6 +22,7 @@ import {MemberGroupsDetailComponent} from './pages/member-detail-page/member-gro
 import {VoSettingsManagersComponent} from './pages/vo-detail-page/vo-settings/vo-settings-managers/vo-settings-managers.component';
 import {ApplicationDetailComponent} from './components/application-detail/application-detail.component';
 import {GroupMembersComponent} from './group-detail-page/group-members/group-members.component';
+import {GroupResourcesComponent} from './group-detail-page/group-resources/group-resources.component';
 
 const routes: Routes = [
   {
@@ -117,6 +118,10 @@ const routes: Routes = [
       {
         path: 'applications',
         component: GroupApplicationsComponent
+      },
+      {
+        path: 'resources',
+        component: GroupResourcesComponent
       },
       {
         path: 'applications/:applicationId',
