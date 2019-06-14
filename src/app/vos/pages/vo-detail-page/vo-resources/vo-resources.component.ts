@@ -31,7 +31,7 @@ export class VoResourcesComponent implements OnInit {
       this.voService.getVoById(voId).subscribe(vo => {
         this.vo = vo;
 
-        this.resourcesService.getResources(this.vo.id).subscribe(resources => {
+        this.resourcesService.getResourcesByVo(this.vo.id).subscribe(resources => {
           this.resources = resources;
         });
       });

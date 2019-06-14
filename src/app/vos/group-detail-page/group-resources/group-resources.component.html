@@ -1,0 +1,12 @@
+<div>
+  <h1 class="page-subtitle">{{'GROUP_DETAIL.RESOURCES.TITLE' | translate}}</h1>
+
+  <button mat-flat-button color="warn" [disabled]="selected.selected.length === 0">
+    {{'GROUP_DETAIL.RESOURCES.DELETE' | translate}}
+  </button>
+
+  <app-resources-list
+    [resources]="resources"
+    [selection]="selected">
+  </app-resources-list>
+</div>

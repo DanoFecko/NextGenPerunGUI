@@ -27,6 +27,7 @@ import { ApplicationsListComponent } from './components/applications-list/applic
 import { GroupApplicationsComponent } from './pages/group-detail-page/group-applications/group-applications.component';
 import { MemberGroupsDetailComponent } from './pages/member-detail-page/member-groups/member-groups-detail/member-groups-detail.component';
 import { MemberGroupListComponent } from './components/member-group-list/member-group-list.component';
+import { GroupResourcesComponent } from './group-detail-page/group-resources/group-resources.component';
 
 @NgModule({
   imports: [
@@ -59,7 +60,9 @@ import { MemberGroupListComponent } from './components/member-group-list/member-
     ApplicationsListComponent,
     GroupApplicationsComponent,
     MemberGroupsDetailComponent,
-    MemberGroupListComponent
+    MemberGroupListComponent,
+    GroupApplicationsComponent,
+    GroupResourcesComponent
   ]
 })
 export class VosModule {

@@ -13,7 +13,11 @@ export class ResourcesService {
   ) {
   }
 
-  getResources(id: number): Observable<RichResource[]> {
+  getResourcesByVo(id: number): Observable<RichResource[]> {
     return this.apiService.get(`json/resourcesManager/getRichResources?vo=${id}`);
+  }
+
+  getResourcesByGroup(id: number): Observable<RichResource[]> {
+    return this.apiService.get(`json/resourcesManager/getAssignedRichResources?group=${id}`);
   }
 }
