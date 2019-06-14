@@ -61,7 +61,6 @@ import { GroupResourcesComponent } from './group-detail-page/group-resources/gro
     GroupApplicationsComponent,
     MemberGroupsDetailComponent,
     MemberGroupListComponent,
-    GroupApplicationsComponent,
     GroupResourcesComponent
   ]
 })

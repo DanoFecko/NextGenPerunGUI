@@ -109,8 +109,7 @@
       "SHOW_LIST": "List view",
       "NO_SUBGROUPS": "This group has no subgroups."
     },
-    "SUBGROUP_INFO": "This group is a subgroup of "
-    },
+    "SUBGROUP_INFO": "This group is a subgroup of ",
     "RESOURCES": {
       "TITLE": "Resources",
       "DELETE": "Remove selected"
