@@ -4,7 +4,7 @@
   <button mat-flat-button color="accent" (click)="onCreateGroup()">
     {{'GROUP_DETAIL.SUBGROUPS.CREATE_GROUP' | translate}}
   </button>
-  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0">
+  <button mat-flat-button color="warn" class="ml-2" [disabled]="selected.selected.length === 0" (click)="deleteGroup()">
     {{'GROUP_DETAIL.SUBGROUPS.DELETE_GROUP' | translate}}
   </button>
   <mat-checkbox color="primary" class="ml-3" [(ngModel)]="showGroupList">

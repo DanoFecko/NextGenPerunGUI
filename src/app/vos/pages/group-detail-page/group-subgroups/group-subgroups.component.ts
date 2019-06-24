@@ -5,6 +5,7 @@ import {Group} from '../../../../core/models/Group';
 import {CreateGroupDialogComponent} from '../../../../shared/components/dialogs/create-group-dialog/create-group-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
+import {DeleteGroupDialogComponent} from '../../../../shared/components/dialogs/delete-group-dialog/delete-group-dialog.component';
 
 @Component({
   selector: 'app-group-subgroups',
@@ -47,6 +48,22 @@ export class GroupSubgroupsComponent implements OnInit {
       this.groupService.getAllRichSubGroupsWithAttributesByNames(groupId).subscribe(groups => {
         this.groups = groups;
       });
+    });
+  }
+
+  deleteGroup() {
+    const dialogRef = this.dialog.open(DeleteGroupDialogComponent, {
+      width: '450px',
+      data: {voId: this.group.id, groups: this.selected.selected}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.groupService.getAllSubGroups(this.group.id).subscribe(groups => {
+          this.groups = groups;
+          this.selected.clear();
+        });
+      }
     });
   }
 }
