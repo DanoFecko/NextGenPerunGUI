@@ -1,3 +1,21 @@
-<p>
-  vo-settings-attributes works!
-</p>
+<div>
+  <h1 class="page-subtitle">{{'VO_DETAIL.SETTINGS.ATTRIBUTES.TITLE' | translate}}</h1>
+
+  <button mat-flat-button class="mr-2" color="accent" (click)="onCreate()">
+    {{'VO_DETAIL.SETTINGS.ATTRIBUTES.CREATE' | translate}}
+  </button>
+
+  <button mat-flat-button class="mr-2" color="accent" (click)="onSave()" [disabled]="selected.selected.length === 0">
+    {{'VO_DETAIL.SETTINGS.ATTRIBUTES.SAVE' | translate}}
+  </button>
+
+  <button mat-flat-button color="warn" (click)="onDelete()" [disabled]="selected.selected.length === 0">
+    {{'VO_DETAIL.SETTINGS.ATTRIBUTES.DELETE' | translate}}
+  </button>
+
+  <app-attributes-list
+    #list
+    [attributes]="attributes"
+    [selection]="selected">
+  </app-attributes-list>
+</div>

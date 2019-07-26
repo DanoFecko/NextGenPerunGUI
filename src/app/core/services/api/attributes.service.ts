@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs';
 import {Attribute} from '../../models/Attribute';
@@ -13,7 +13,8 @@ export class AttributesService {
 
   constructor(
     private apiService: ApiService
-  ) { }
+  ) {
+  }
 
   getMemberAttribute(memberId: number, urn: string, showNotificationOnError = true): Observable<Attribute> {
     return this.apiService.get(`json/attributesManager/getAttribute?member=${memberId}&attributeName=${urn}`,
@@ -41,4 +42,28 @@ export class AttributesService {
     return this.apiService.get('json/attributesManager/getAttributesDefinition',
       new HttpParams(), showNotificationOnError);
   }
+
+  getAllVoAttributes(voId: number, showNotificationOnError = true): Observable<Attribute[]> {
+    return this.apiService.get(`json/attributesManager/getAttributes?vo=${voId}`, new HttpParams(), showNotificationOnError);
+  }
+
+  deleteVoAttributes(voId: number, attributeIDs: number[], showNotificationOnError = true) {
+    return this.apiService.post('json/attributesManager/removeAttributes', {
+      vo: voId,
+      attributes: attributeIDs
+    }, showNotificationOnError);
+  }
+
+  getAttributeDefinitions(voId: number, showNotificationOnError = true): Observable<AttributeDefinition[]> {
+    return this.apiService.get(`json/attributesManager/getAttributesDefinitionWithRights?vo=${voId}`,
+      new HttpParams(), showNotificationOnError);
+  }
+
+  setVoAttributes(voId: number, attributes: Attribute[], showNotificationOnError = true): Observable<void> {
+    return this.apiService.post(`json/attributesManager/setAttributes`, {
+      vo: voId,
+      attributes: attributes
+    }, showNotificationOnError);
+  }
 }
+

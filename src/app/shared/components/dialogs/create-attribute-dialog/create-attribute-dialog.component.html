@@ -1,0 +1,21 @@
+<div class="{{data.style}}">
+  <h1 class="page-subtitle">{{'DIALOGS.CREATE_ATTRIBUTE.SET_NEW' | translate}}</h1>
+  <div *ngIf="showError" class="perun-alert error-alert">
+    {{'DIALOGS.CREATE_ATTRIBUTE.ERROR_EMPTY_VALUE' | translate}}
+  </div>
+  <button mat-flat-button class="mr-2" color="accent" (click)="onSave()" [disabled]="selected.selected.length === 0">
+    {{'DIALOGS.CREATE_ATTRIBUTE.SAVE' | translate}}
+  </button>
+
+  <button mat-flat-button (click)="onCancel()">
+    {{'DIALOGS.CREATE_ATTRIBUTE.CANCEL' | translate}}
+  </button>
+
+  <app-attributes-list
+    *ngIf="attributes !== undefined"
+    #list
+    [attributes]="attributes"
+    [selection]="selected"
+    [inDialog]="true">
+  </app-attributes-list>
+</div>

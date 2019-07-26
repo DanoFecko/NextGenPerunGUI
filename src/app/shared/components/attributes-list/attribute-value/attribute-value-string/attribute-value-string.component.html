@@ -1,0 +1,11 @@
+<div>
+  <label for="input"></label>
+  <input
+    matInput
+    [(ngModel)]="attribute.value"
+    name="inputField"
+    type="text"
+    id="input"
+    placeholder="New value"
+    (change)="_sendEventToParent()"/>
+</div>

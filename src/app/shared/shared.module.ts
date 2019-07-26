@@ -50,6 +50,8 @@ import {UsersListComponent} from './components/users-list/users-list.component';
 import { ApplicationReSendNotificationDialogComponent
 } from './components/dialogs/application-re-send-notification-dialog/application-re-send-notification-dialog.component';
 import { ApplicationRejectDialogComponent } from './components/dialogs/application-reject-dialog/application-reject-dialog.component';
+import { AnyToStringPipe } from './pipes/any-to-string.pipe';
+import { DeleteAttributeDialogComponent } from './components/dialogs/delete-attribute-dialog/delete-attribute-dialog.component';
 import { MemberStatusIconPipe } from './pipes/member-status-icon.pipe';
 import { MemberStatusIconColorPipe } from './pipes/member-status-icon-color.pipe';
 import { MemberEmailPipe } from './pipes/member-email.pipe';
@@ -122,7 +124,9 @@ import {
     MatStepperModule,
     NgxGraphModule,
     NgxChartsModule,
-    DragDropModule
+    DragDropModule,
+    NgxChartsModule,
+    MatCardModule,
   ],
   exports: [
     PerunNavComponent,
@@ -178,7 +182,12 @@ import {
     GroupsListComponent,
     ApplicationFormItemTypePipe,
     DragDropModule,
-    ApplicationFormWidgetDescriptionPipe
+    ApplicationFormWidgetDescriptionPipe,
+    GroupsListComponent,
+    ResourcesListComponent,
+    TechnicalOwnersPipe,
+    UsersListComponent,
+    AnyToStringPipe,
   ],
   entryComponents: [
     CreateGroupDialogComponent,
@@ -194,7 +203,11 @@ import {
     ApplicationFormCopyItemsDialogComponent,
     AddApplicationFormItemDialogComponent,
     EditApplicationFormItemDialogComponent,
-    DeleteApplicationFormMailDialogComponent
+    DeleteApplicationFormMailDialogComponent,
+    RemoveResourceDialogComponent,
+    RemoveMembersDialogComponent,
+    ApplicationRejectDialogComponent,
+    DeleteAttributeDialogComponent,
   ],
   declarations: [
     PerunNavComponent,
@@ -236,7 +249,17 @@ import {
     AddApplicationFormItemDialogComponent,
     EditApplicationFormItemDialogComponent,
     ApplicationFormWidgetDescriptionPipe,
-    DeleteApplicationFormMailDialogComponent
+    DeleteApplicationFormMailDialogComponent,
+    GroupsListComponent,
+    ResourcesListComponent,
+    TechnicalOwnersPipe,
+    SideMenuRootItemComponent,
+    ApplicationRejectDialogComponent,
+    AnyToStringPipe,
+    DeleteAttributeDialogComponent,
+  ],
+  providers: [
+    AnyToStringPipe,
   ]
 })
 export class SharedModule {

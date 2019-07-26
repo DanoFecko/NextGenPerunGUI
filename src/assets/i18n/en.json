@@ -196,6 +196,16 @@
           "DELETE_SUCCESS": "Email notification deleted.",
           "NO_EMAILS": "No mail notifications found for this VO."
         }
+      },
+      "ATTRIBUTES": {
+        "TITLE": "Attributes",
+        "DELETE": "Remove selected",
+        "FILTER": "Filter by id, name, value or description",
+        "SAVE": "Save selected",
+        "CREATE": "Add...",
+        "CANCEL": "Cancel",
+        "SUCCESS_DELETE": "Attributes deleted successfully",
+        "SUCCESS_SAVE": "Attributes saved successfully"
       }
     },
     "APPLICATION": {
@@ -353,6 +363,14 @@
       "EMAIL_ERROR": "Fill in an correct email!",
       "SUCCESS": "Invite was send to given email"
     },
+    "DELETE_ATTRIBUTES": {
+      "TITLE": "Confirm delete action",
+      "DESCRIPTION": "Following attributes will be removed.",
+      "ASK": "Do you want to proceed?",
+      "CANCEL": "Cancel",
+      "DELETE": "Delete",
+      "SUCCESS": "Selected attributes were removed"
+    },
     "DELETE_GROUP": {
       "TITLE": "Confirm delete action",
       "DESCRIPTION": "Following groups (including all sub-groups) will be deleted.",
@@ -484,6 +502,13 @@
       "CONFIRMATION": "Do you want to proceed?",
       "SUBMIT": "Delete",
       "CANCEL": "Cancel"
+    },
+    "CREATE_ATTRIBUTE": {
+      "SET_NEW": "Set new attributes",
+      "SAVE": "Save selected",
+      "CANCEL": "Cancel",
+      "SUCCESS_SAVE": "Attributes saved successfully",
+      "ERROR_EMPTY_VALUE": "You can't save attribute with empty value"
     }
   },
   "MEMBERS_LIST": {
@@ -586,6 +611,13 @@
         "TABLE_GROUP_NAME": "Name",
         "TABLE_SEARCH": "Filter by name, description or ID",
         "TABLE_GROUP_DESCRIPTION": "Description"
+      },
+      "ATTRIBUTES_LIST": {
+        "FILTER": "Filter by id, name, value or description",
+        "ID": "id",
+        "NAME": "Name",
+        "VALUE": "Value",
+        "DESCRIPTION": "Description"
       }
     }
   }
