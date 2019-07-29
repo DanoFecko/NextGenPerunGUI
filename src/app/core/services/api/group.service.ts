@@ -61,9 +61,9 @@ export class GroupService {
     }, showNotificationOnError);
   }
 
-  getAllMemberGroups(member: number): Observable<Group[]> {
+  getAllMemberGroups(member: number, showNotificationOnError = true): Observable<Group[]> {
     return this.apiService.post('json/groupsManager/getAllMemberGroups', {
       'member': member
-    });
+    }, showNotificationOnError);
   }
 }

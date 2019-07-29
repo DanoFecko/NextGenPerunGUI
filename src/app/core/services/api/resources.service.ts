@@ -19,7 +19,7 @@ export class ResourcesService {
   getResourceById(id: number, showNotificationOnError = true): Observable<Resource> {
     return this.apiService.post('json/resourcesManager/getResourceById', {
       id: id
-    });
+    }, showNotificationOnError);
   }
 
   getResourcesByVo(id: number, showNotificationOnError = true): Observable<RichResource[]> {
@@ -30,16 +30,16 @@ export class ResourcesService {
     return this.apiService.get(`json/resourcesManager/getAssignedRichResources?group=${id}`, new HttpParams(), showNotificationOnError);
   }
 
-  getAssignedResources(group: number): Observable<Resource[]> {
+  getAssignedResources(group: number, showNotificationOnError = true): Observable<Resource[]> {
     return this.apiService.post('json/resourcesManager/getAssignedResources', {
       'group': group
-    });
+    }, showNotificationOnError);
   }
 
-  getAssignedServices(resource: number): Observable<Service[]> {
+  getAssignedServices(resource: number, showNotificationOnError = true): Observable<Service[]> {
     return this.apiService.post('json/resourcesManager/getAssignedServices', {
       'resource': resource
-    });
+    }, showNotificationOnError);
   }
 
   getAllResources(facilityId: number, showNotificationOnError = true): Observable<RichResource[]> {

@@ -67,9 +67,9 @@ export class MembersService {
     }, showNotificationOnError);
   }
 
-  getMembersByUser(user: number): Observable<Member[]> {
+  getMembersByUser(user: number, showNotificationOnError = true): Observable<Member[]> {
     return this.apiService.post('json/membersManager/getMembersByUser', {
       'user': user
-    });
+    }, showNotificationOnError);
   }
 }

@@ -12,9 +12,9 @@ export class ServiceService {
     private apiService: ApiService
   ) { }
 
-  getAllRichDestinations(facilityId: number): Observable<RichDestination[]> {
+  getAllRichDestinations(facilityId: number, showNotificationOnError = true): Observable<RichDestination[]> {
     return this.apiService.post('json/servicesManager/getAllRichDestinations', {
       'facility': facilityId
-    });
+    }, showNotificationOnError);
   }
 }

@@ -1,8 +1,9 @@
 import {Component, Inject} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Group} from '../../../../core/models/Group';
 import {GroupService} from '../../../../core/services/api/group.service';
 import {TranslateService} from '@ngx-translate/core';
+import {NotificatorService} from '../../../../core/services/common/notificator.service';
 
 export interface CreateGroupDialogData {
   parentGroup: Group;
@@ -21,6 +22,7 @@ export class CreateGroupDialogComponent {
     @Inject(MAT_DIALOG_DATA) private data: CreateGroupDialogData,
     private groupService: GroupService,
     private translate: TranslateService,
+    private notificator: NotificatorService,
   ) {
     this.isNotSubGroup = (this.data.parentGroup === null);
     if (this.isNotSubGroup) {
@@ -30,6 +32,8 @@ export class CreateGroupDialogComponent {
         this.title = value + this.data.parentGroup.name;
       });
     }
+    translate.get('DIALOGS.CREATE_GROUP.SUCCESS').subscribe(value => this.successMessage = value);
+    translate.get('DIALOGS.CREATE_GROUP.SUCCESS_SUBGROUP').subscribe(value => this.successSubGroupMessage = value);
   }
 
   isNotSubGroup: boolean;
@@ -39,6 +43,9 @@ export class CreateGroupDialogComponent {
 
   title: string;
 
+  successMessage: string;
+  successSubGroupMessage: string;
+
   onCancel(): void {
     this.dialogRef.close();
   }
@@ -46,10 +53,12 @@ export class CreateGroupDialogComponent {
   onSubmit(): void {
     if (this.isNotSubGroup) {
       this.groupService.createGroup(this.data.voId, this.name, this.description).subscribe(group => {
+        this.notificator.showSuccess(this.successMessage);
         this.dialogRef.close();
       });
     } else {
       this.groupService.createSubGroup(this.data.parentGroup.id, this.name, this.description).subscribe(group => {
+        this.notificator.showSuccess(this.successSubGroupMessage);
         this.dialogRef.close();
       });
     }

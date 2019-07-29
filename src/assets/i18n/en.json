@@ -245,7 +245,9 @@
       "NAME": "Name",
       "DESCRIPTION": "Description",
       "CANCEL": "Cancel",
-      "CREATE": "Create"
+      "CREATE": "Create",
+      "SUCCESS": "New group successfully created",
+      "SUCCESS_SUBGROUP": "New subgroup successfully created"
     },
     "INVITE_MEMBER": {
       "TITLE": "Invite member",
