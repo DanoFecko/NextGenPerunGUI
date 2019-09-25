@@ -1,5 +1,5 @@
 <div class="buttons-container pl-2 pr-2 pl-xl-5 pr-xl-5">
-  <a class="main-menu-button vo-btn" [routerLink]="['organizations']">
+  <a *ngIf="authResolver.isVoAdmin() || authResolver.isVoObserver()" class="main-menu-button vo-btn" [routerLink]="['organizations']">
     <img src="assets/img/PerunWebImages/vo-white.svg">
     <h1>Access management</h1>
     <p>Manage organizations, groups and members.</p>
@@ -9,7 +9,7 @@
     <h1>Facilities management</h1>
     <p>Manage facilities and resources.</p>
   </a>
-  <a class="main-menu-button admin-btn" [routerLink]="['admin']">
+  <a *ngIf="authResolver.isPerunAdmin()" class="main-menu-button admin-btn" [routerLink]="['admin']">
     <img src="assets/img/PerunWebImages/perun_admin-white.svg">
     <h1>Administration tools</h1>
     <p>Manage attributes, users and do diagnostics.</p>

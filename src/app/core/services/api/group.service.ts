@@ -3,6 +3,7 @@ import {ApiService} from './api.service';
 import {Observable} from 'rxjs';
 import {Group} from '../../models/Group';
 import {HttpParams} from '@angular/common/http';
+import {Vo} from '../../models/Vo';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +73,9 @@ export class GroupService {
       'movingGroup' : movingGroupId,
       'destinationGroup' : destinationGroupId
     }, showNotificationOnError);
+  }
+
+  getVoOfGroup(id: number, showNotificationOnError = true): Observable<Vo> {
+    return this.apiService.get(`json/groupsManager/getVo?group=${id}`, new HttpParams(), showNotificationOnError);
   }
 }

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Vo} from '../../core/models/Vo';
-import {SideMenuItem} from './side-menu.component';
+import {EntityMenuLink, SideMenuItem} from './side-menu.component';
 import {Group} from '../../core/models/Group';
 import {RichMember} from '../../core/models/RichMember';
 import {User} from '../../core/models/User';
 import {parseFullName} from '../utils';
 import {Facility} from '../../core/models/Facility';
 import {Resource} from '../../core/models/Resource';
+import {AuthResolverService} from '../../core/services/common/auth-resolver.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,9 @@ export class SideMenuItemService {
 
   constructor(
     private translate: TranslateService,
-  ) { }
+    private authResolver: AuthResolverService,
+  ) {
+  }
 
   getFacilitiesManagementItem(): SideMenuItem {
     return {
@@ -236,84 +239,7 @@ export class SideMenuItemService {
     return {
       label: vo.name,
       baseLink: [`/organizations/${vo.id}`],
-      links: [
-        {
-          label: 'MENU_ITEMS.VO.OVERVIEW',
-          url: [`/organizations/${vo.id}`],
-          activatedRegex: '/organizations/\\d+$'
-        },
-        {
-          label: 'MENU_ITEMS.VO.MEMBERS',
-          url: [`/organizations/${vo.id}/members`],
-          activatedRegex: '/organizations/\\d+/members$'
-        },
-        {
-          label: 'MENU_ITEMS.VO.GROUPS',
-          url: [`/organizations/${vo.id}/groups`],
-          activatedRegex: '/organizations/\\d+/groups$'
-        },
-        {
-          label: 'MENU_ITEMS.VO.RESOURCES',
-          url: [`/organizations/${vo.id}/resources`],
-          activatedRegex: '/organizations/\\d+/resources$',
-          children: [
-            {
-              label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
-              url: [`/organizations/${vo.id}/resources/preview`],
-              activatedRegex: '/organizations/\\d+/resources/preview$'
-            },
-            {
-              label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
-              url: [`/organizations/${vo.id}/resources/tags`],
-              activatedRegex: '/organizations/\\d+/resources/tags$'
-            },
-            {
-              label: 'MENU_ITEMS.VO.RESOURCE_STATES',
-              url: [`/organizations/${vo.id}/resources/states`],
-              activatedRegex: '/organizations/\\d+/resources/states$'
-            }
-          ],
-          showChildrenRegex: '/organizations/\\d+/resources'
-        },
-        {
-          label: 'MENU_ITEMS.VO.APPLICATIONS',
-          url: [`/organizations/${vo.id}/applications`],
-          activatedRegex: '/organizations/\\d+/applications'
-        },
-        {
-          label: 'MENU_ITEMS.VO.SETTINGS',
-          url: [`/organizations/${vo.id}/settings`],
-          activatedRegex: '/organizations/\\d+/settings$',
-          children: [
-            {
-              label: 'MENU_ITEMS.VO.ATTRIBUTES',
-              url: [`/organizations/${vo.id}/settings/attributes`],
-              activatedRegex: '/organizations/\\d+/settings/attributes$'
-            },
-            {
-              label: 'MENU_ITEMS.VO.EXPIRATION',
-              url: [`/organizations/${vo.id}/settings/expiration`],
-              activatedRegex: '/organizations/\\d+/settings/expiration$'
-            },
-            {
-              label: 'MENU_ITEMS.VO.MANAGERS',
-              url: [`/organizations/${vo.id}/settings/managers`],
-              activatedRegex: '/organizations/\\d+/settings/managers$'
-            },
-            {
-              label: 'MENU_ITEMS.VO.APPLICATION_FORM',
-              url: [`/organizations/${vo.id}/settings/applicationForm`],
-              activatedRegex: '/organizations/\\d+/settings/applicationForm$'
-            },
-            {
-              label: this.translate.instant('MENU_ITEMS.VO.NOTIFICATIONS'),
-              url: [`/organizations/${vo.id}/settings/notifications`],
-              activatedRegex: '/organizations/\\d+/settings/notifications$'
-            }
-          ],
-          showChildrenRegex: '/organizations/\\d+/settings'
-        }
-      ],
+      links: this.getVoLinks(vo),
       colorClass: 'vo-item',
       icon: 'vo-white.svg',
       // labelClass: 'vo-text',
@@ -372,5 +298,105 @@ export class SideMenuItemService {
       colorClass: 'user-bg-color',
       icon: 'user-white.svg'
     };
+  }
+
+  getVoLinks(vo: Vo): EntityMenuLink[] {
+    const links: EntityMenuLink[] = [];
+
+    // Overview
+    links.push({
+      label: 'MENU_ITEMS.VO.OVERVIEW',
+      url: [`/organizations/${vo.id}`],
+      activatedRegex: '/organizations/\\d+$'
+    });
+
+    // Members
+    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.MEMBERS',
+        url: [`/organizations/${vo.id}/members`],
+        activatedRegex: '/organizations/\\d+/members$'
+      });
+    }
+
+    // Groups
+    if (this.authResolver.isThisVoAdminOrObserver(vo.id)
+      || this.authResolver.isGroupAdminInThisVo(vo.id)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.GROUPS',
+        url: [`/organizations/${vo.id}/groups`],
+        activatedRegex: '/organizations/\\d+/groups$'
+      });
+    }
+
+    // Resource management
+    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.RESOURCES',
+        url: [`/organizations/${vo.id}/resources`],
+        activatedRegex: '/organizations/\\d+/resources$',
+        children: [
+          {
+            label: 'MENU_ITEMS.VO.RESOURCE_PREVIEW',
+            url: [`/organizations/${vo.id}/resources/preview`],
+            activatedRegex: '/organizations/\\d+/resources/preview$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.RESOURCE_TAGS',
+            url: [`/organizations/${vo.id}/resources/tags`],
+            activatedRegex: '/organizations/\\d+/resources/tags$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.RESOURCE_STATES',
+            url: [`/organizations/${vo.id}/resources/states`],
+            activatedRegex: '/organizations/\\d+/resources/states$'
+          }
+        ],
+        showChildrenRegex: '/organizations/\\d+/resources'
+      });
+    }
+
+    // Applications
+    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.APPLICATIONS',
+        url: [`/organizations/${vo.id}/applications`],
+        activatedRegex: '/organizations/\\d+/applications'
+      });
+    }
+
+    // Settings
+    if (this.authResolver.isThisVoAdminOrObserver(vo.id)) {
+      links.push({
+        label: 'MENU_ITEMS.VO.SETTINGS',
+        url: [`/organizations/${vo.id}/settings`],
+        activatedRegex: '/organizations/\\d+/settings$',
+        children: [
+          {
+            label: 'MENU_ITEMS.VO.ATTRIBUTES',
+            url: [`/organizations/${vo.id}/settings/attributes`],
+            activatedRegex: '/organizations/\\d+/settings/attributes$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.EXPIRATION',
+            url: [`/organizations/${vo.id}/settings/expiration`],
+            activatedRegex: '/organizations/\\d+/settings/expiration$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.MANAGERS',
+            url: [`/organizations/${vo.id}/settings/managers`],
+            activatedRegex: '/organizations/\\d+/settings/managers$'
+          },
+          {
+            label: 'MENU_ITEMS.VO.APPLICATION_FORM',
+            url: [`/organizations/${vo.id}/settings/applicationForm`],
+            activatedRegex: '/organizations/\\d+/settings/applicationForm$'
+          }
+        ],
+        showChildrenRegex: '/organizations/\\d+/settings'
+      });
+    }
+
+    return links;
   }
 }

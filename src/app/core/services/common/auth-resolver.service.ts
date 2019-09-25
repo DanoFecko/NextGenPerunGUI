@@ -1,21 +1,26 @@
 import {Injectable} from '@angular/core';
 import {PerunPrincipal, Role} from '../../models/PerunPrincipal';
+import {GroupService} from '../api/group.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthResolverService {
 
-  constructor() { }
+  constructor(private groupService: GroupService) {
+  }
 
   private principal: PerunPrincipal;
 
   private principalRoles: Set<Role> = new Set<Role>();
 
-  private facilities: number[] = [];
-  private vos: number[] = [];
+  private editableFacilities: number[] = [];
+  private editableVos: number[] = [];
   private members: number[] = [];
   private user: number;
+  private editableGroups: number[] = [];
+  private observableVos: number[] = [];
+  private hasGroupInTheseVos: number[] = [];
 
   setPerunPrincipal(principal: PerunPrincipal): void {
     this.principal = principal;
@@ -35,15 +40,91 @@ export class AuthResolverService {
     return this.principalRoles.has(Role.PERUNADMIN);
   }
 
+  public isVoAdmin(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.VOADMIN);
+  }
+
+  public isThisVoAdminOrObserver(id: number): boolean {
+    return (this.editableVos.includes(id) || this.observableVos.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+  }
+
+  public isThisVoAdmin(id: number): boolean {
+    return (this.editableVos.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+  }
+
+  public isGroupAdmin(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.GROUPADMIN);
+  }
+
+  public isThisGroupAdmin(id: number): boolean {
+    return (this.editableGroups.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+  }
+
+  public isGroupAdminInThisVo(id: number): boolean {
+    return (this.hasGroupInTheseVos.includes(id));
+  }
+
+  public isFacilityAdmin(): boolean {
+    return this.hasAtLeasOne(Role.PERUNADMIN, Role.FACILITYADMIN);
+  }
+
+  public isThisFacilityAdmin(id: number): boolean {
+    return (this.editableFacilities.includes(id) || this.principalRoles.has(Role.PERUNADMIN));
+  }
+
+  isVoObserver(): boolean {
+    return (this.hasAtLeasOne(Role.PERUNADMIN, Role.VOOBSERVER));
+  }
+
+  isThisVoObserver(id: number): boolean {
+    return (this.principalRoles.has(Role.PERUNADMIN) || this.observableVos.includes(id));
+  }
+
+  public getMemberIds(): number[] {
+    return this.members;
+  }
+
   /**
    * Initialises principal data which are used for later verification
    *
    * @param principal given principal
    */
   private initData(principal: PerunPrincipal) {
-    for (const p in principal.roles) {
-      if (principal.roles.hasOwnProperty(p)) {
-        this.principalRoles.add(<Role><unknown>p);
+    this.user = principal.user.id;
+    for (const [key, value] of Object.entries(this.principal.roles)) {
+      if (principal.roles.hasOwnProperty(key)) {
+        this.principalRoles.add(<Role>key);
+      }
+      for (const [keyInner, valueInner] of Object.entries(value)) {
+        switch (key) {
+          case Role.VOADMIN: {
+            this.editableVos = <number[]>valueInner;
+            break;
+          }
+          case Role.FACILITYADMIN: {
+            this.editableFacilities = <number[]>valueInner;
+            break;
+          }
+          case Role.GROUPADMIN: {
+            if (keyInner === 'Group') {
+              this.editableGroups = <number[]>valueInner;
+            }
+            if (keyInner === 'Vo') {
+              this.hasGroupInTheseVos = <number[]>valueInner;
+            }
+            break;
+          }
+          case Role.SELF: {
+            if (keyInner === 'Member') {
+              this.members = <number[]>valueInner;
+            }
+            break;
+          }
+          case Role.VOOBSERVER: {
+            this.observableVos = <number[]>valueInner;
+            break;
+          }
+        }
       }
     }
   }
